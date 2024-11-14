@@ -21,6 +21,25 @@ SQLALCHEMY_ECHO = ENV == "development"  # or ENV == "test"
 USER_DISPLAY_CUSTOM_ATTRIBUTES = os.getenv("USER_DISPLAY_CUSTOM_ATTRIBUTES", "Title,Manager")
 MAX_ACCESS_REQUEST_AGE_SECONDS = os.getenv("MAX_ACCESS_REQUEST_AGE_SECONDS", 7 * 24 * 60 * 60)  # 7 days
 
+# If BACKEND_NAME_PATTERN_OVERRIDE and related error message overrides are specified, let's override the defaults
+BACKEND_NAME_PATTERN_CONFIG = os.getenv("BACKEND_NAME_PATTERN_OVERRIDE", "[A-Z][A-Za-z0-9-]*")
+BACKEND_NAME_PATTERN_VALIDATION_APP_ERROR_MSG_CONFIG = os.getenv(
+    "BACKEND_NAME_PATTERN_VALIDATION_APP_ERROR_MSG_OVERRIDE",
+    "App name must start capitalized and contain only alphanumeric characters or hyphens. ",
+)
+BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_CONFIG = os.getenv(
+    "BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_OVERRIDE",
+    "Group name must start capitalized and contain only alphanumeric characters or hyphens. ",
+)
+BACKEND_NAME_PATTERN_VALIDATION_ROLE_GROUP_ERROR_MSG_CONFIG = os.getenv(
+    "BACKEND_NAME_PATTERN_VALIDATION_ROLE_GROUP_ERROR_MSG_OVERRIDE",
+    "Role name must start capitalized and contain only alphanumeric characters or hyphens. ",
+)
+BACKEND_NAME_PATTERN_VALIDATION_TAG_ERROR_MSG_CONFIG = os.getenv(
+    "BACKEND_NAME_PATTERN_VALIDATION_TAG_ERROR_MSG_OVERRIDE",
+    "Tag name must start capitalized and contain only alphanumeric characters or hyphens. ",
+)
+
 
 def default_user_search() -> list[str]:
     default_user_attrs = USER_DISPLAY_CUSTOM_ATTRIBUTES.split(",")

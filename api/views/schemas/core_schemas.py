@@ -6,6 +6,13 @@ from marshmallow.schema import SchemaMeta, SchemaOpts
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from sqlalchemy.orm import Session
 
+from api.config import (
+    BACKEND_NAME_PATTERN_CONFIG,
+    BACKEND_NAME_PATTERN_VALIDATION_APP_ERROR_MSG_CONFIG,
+    BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_CONFIG,
+    BACKEND_NAME_PATTERN_VALIDATION_ROLE_GROUP_ERROR_MSG_CONFIG,
+    BACKEND_NAME_PATTERN_VALIDATION_TAG_ERROR_MSG_CONFIG,
+)
 from api.extensions import db
 from api.models import (
     AccessRequest,
@@ -246,9 +253,8 @@ class OktaGroupSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                "^[A-Z][A-Za-z0-9-]*$",
-                error="Group name must start capitalized and contain only alphanumeric characters or hyphens. "
-                "Regex to match: /{regex}/",
+                f"^{BACKEND_NAME_PATTERN_CONFIG}$",
+                error=f"{BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_CONFIG}" "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -618,9 +624,8 @@ class RoleGroupSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{RoleGroup.ROLE_GROUP_NAME_PREFIX}[A-Z][A-Za-z0-9-]*$",
-                error="Role name must start capitalized and contain only alphanumeric characters or hyphens. "
-                "Regex to match: /{regex}/",
+                f"^{RoleGroup.ROLE_GROUP_NAME_PREFIX}{BACKEND_NAME_PATTERN_CONFIG}$",
+                error=f"{BACKEND_NAME_PATTERN_VALIDATION_ROLE_GROUP_ERROR_MSG_CONFIG}" "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -838,9 +843,8 @@ class AppGroupSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{AppGroup.APP_GROUP_NAME_PREFIX}[A-Z][A-Za-z0-9-]*{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}[A-Z][A-Za-z0-9-]*$",
-                error="Group name must start capitalized and contain only alphanumeric characters or hyphens. "
-                "Regex to match: /{regex}/",
+                f"^{AppGroup.APP_GROUP_NAME_PREFIX}{BACKEND_NAME_PATTERN_CONFIG}{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}{BACKEND_NAME_PATTERN_CONFIG}$",
+                error=f"{BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_CONFIG}" "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -1130,9 +1134,8 @@ class InitialAppGroupSchema(Schema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{AppGroup.APP_GROUP_NAME_PREFIX}[A-Z][A-Za-z0-9-]*{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}[A-Z][A-Za-z0-9-]*$",
-                error="Group name must start capitalized and contain only alphanumeric characters or hyphens. "
-                "Regex to match: /{regex}/",
+                f"^{AppGroup.APP_GROUP_NAME_PREFIX}{BACKEND_NAME_PATTERN_CONFIG}{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}{BACKEND_NAME_PATTERN_CONFIG}$",
+                error=f"{BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_CONFIG}" "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -1145,9 +1148,8 @@ class AppSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                "^[A-Z][A-Za-z0-9-]*$",
-                error="App name must start capitalized and contain only alphanumeric characters or hyphens. "
-                "Regex to match: /{regex}/",
+                f"^{BACKEND_NAME_PATTERN_CONFIG}$",
+                error=f"{BACKEND_NAME_PATTERN_VALIDATION_APP_ERROR_MSG_CONFIG}" "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -1460,9 +1462,8 @@ class TagSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                "^[A-Z][A-Za-z0-9-]*$",
-                error="Tag name must start capitalized and contain only alphanumeric characters or hyphens. "
-                "Regex to match: /{regex}/",
+                f"^{BACKEND_NAME_PATTERN_CONFIG}$",
+                error=f"{BACKEND_NAME_PATTERN_VALIDATION_TAG_ERROR_MSG_CONFIG}" "Regex to match: /{regex}/",
             ),
         ),
     )

@@ -244,11 +244,29 @@ The `.env.production` file is where you configure the application.
 
 **Environment Default Overrides:**
 
+The following environment variables allow you to override default settings for both the React frontend and the backend:
+
 - `UNTIL_ID_TO_LABELS_OVERRIDE`: Allows overriding the default ID to labels mapping. **Example:** `'{"14400":"4 Hours","43200":"12 Hours","432000":"5 Days","1209600":"Two Weeks","2592000":"30 Days","7776000":"90 Days"}'`.
 - `UNTIL_JUST_NUMERIC_ID_TO_LABELS_OVERRIDE`: Allows overriding the default numeric ID to labels mapping. **Example:** `'{"14400":"4 Hours","43200":"12 Hours","432000":"5 Days","1209600":"Two Weeks","2592000":"30 Days","7776000":"90 Days"}'`.
 - `DEFAULT_ACCESS_TIME_OVERRIDE`: Allows overriding the default access time. **Example:** `43200` (in seconds).
 
-Defaults for these overrides can be found in the `src/env-overrides.tsx` file.
+For the React frontend, you can override the following; BACKEND_NAME_* overrides should be adjusted in tandem if specified:
+
+- `REACT_APP_NAME_PATTERN_OVERRIDE`: Allows setting a custom pattern for application names. **Example:** `'^[A-Z][A-Za-z0-9_.\-*]*$'`
+- `REACT_APP_NAME_PATTERN_VALIDATION_APP_ERROR_MSG_OVERRIDE`: Custom error message for application name validation. **Example:** `'Name must start capitalized and contain only alphanumeric characters, hyphens, underscores, periods, or asterisks. Regex to match /^[A-Z][A-Za-z0-9_.\-*]*$/'`
+- `REACT_APP_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_OVERRIDE`: Custom error message for group name validation.
+- `REACT_APP_NAME_PATTERN_VALIDATION_TAG_ERROR_MSG_OVERRIDE`: Custom error message for tag name validation.
+- `REACT_APP_DEFAULT_ACCESS_TIME_OVERRIDE`: Allows setting a default access time for the application.
+
+For the backend, you can override the following; REACT_APP_NAME_PATTERN_* overrides should be adjusted in tandem if specified:
+
+- `BACKEND_NAME_PATTERN_CONFIG`: Allows setting a custom pattern for backend name configurations. **Example:** `'[A-Z][A-Za-z0-9_.\-*]*'`
+- `BACKEND_NAME_PATTERN_VALIDATION_APP_ERROR_MSG_CONFIG`: Custom error message for application name validation in the backend. **Example:** `"App name must start capitalized and contain only alphanumeric characters or hyphens. "`
+- `BACKEND_NAME_PATTERN_VALIDATION_GROUP_ERROR_MSG_CONFIG`: Custom error message for group name validation in the backend.
+- `BACKEND_NAME_PATTERN_VALIDATION_ROLE_GROUP_ERROR_MSG_CONFIG`: Custom error message for role group name validation in the backend.
+- `BACKEND_NAME_PATTERN_VALIDATION_TAG_ERROR_MSG_CONFIG`: Custom error message for tag name validation in the backend.
+
+Defaults for these overrides can be found in the `src/env-overrides.tsx` and `api/config.py` files.
 
 **NOTE:**
 
