@@ -1,7 +1,6 @@
 // set a default regex pattern for name validation that can be overridden in the environment
 const NAME_PATTERN_DEFAULT = /^[A-Z][A-Za-z0-9\-]*$/;
 
-// Uses process.env.REACT_APP_NAME_PATTERN_OVERRIDE if defined, otherwise uses default
 const NAME_PATTERN_CONFIG = process.env.REACT_APP_NAME_PATTERN_OVERRIDE
   ? new RegExp(process.env.REACT_APP_NAME_PATTERN_OVERRIDE)
   : NAME_PATTERN_DEFAULT;
