@@ -12,7 +12,6 @@
     "@mui/x-date-pickers": "latest",
     "@sentry/react": "latest",
     "@tanstack/react-query": "latest",
-    "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
     "dayjs": "latest",
@@ -47,6 +46,8 @@
   "devDependencies": {
     "@craco/craco": "latest",
     "@sentry/cli": "latest",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/jest": "^29.5.14",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

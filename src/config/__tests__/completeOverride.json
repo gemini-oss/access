@@ -1,0 +1,8 @@
+{
+  "USER_FORM_DURATION_OPTIONS": {
+    "foo": "Foo",
+    "bar": "Bar"
+  },
+  "USER_FORM_DURATION_DEFAULT_VALUE": "foo",
+  "TEST_OPTION": "test_option"
+}
