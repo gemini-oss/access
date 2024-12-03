@@ -29,7 +29,8 @@
     "build": "env-cmd -f .env.production craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint ."
   },
   "browserslist": {
     "production": [
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@craco/craco": "latest",
+    "@eslint/js": "^9.16.0",
     "@sentry/cli": "latest",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/jest": "^29.5.14",
@@ -53,12 +55,16 @@
     "@types/react-dom": "latest",
     "@types/styled-components": "latest",
     "copy-webpack-plugin": "^12.0.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.13.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.10",
     "prettier": "^3.2.5",
     "react-app-alias": "^2.2.2",
     "react-scripts": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "typescript-eslint": "^8.17.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "prettier --write"

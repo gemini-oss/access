@@ -107,6 +107,8 @@ Invoke the tests using `tox -e test`.
 
 Run `tox -e ruff` and `tox -e mypy` to run the linters.
 
+To lint the frontend, run `tox -e eslint`. To lint an individual file, run `npx eslint path/to/file`.
+
 ## Production Setup
 
 Create a `.env.production` file in the repo root with the following variables. Access supports running against PostgreSQL 14 and above.
