@@ -7,7 +7,7 @@ class AccessConfig {
   private readonly config: Config;
 
   constructor() {
-    const envConfigPath = process.env.REACT_APP_CONFIG_FILE_PATH;
+    const envConfigPath = process.env.REACT_APP_CONFIG_FILE_PATH || '/config/env-config.json';
     let envConfig: Partial<Config> = {};
 
     if (envConfigPath) {
