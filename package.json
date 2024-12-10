@@ -51,6 +51,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/styled-components": "latest",
+    "copy-webpack-plugin": "latest",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.10",
     "prettier": "^3.2.5",

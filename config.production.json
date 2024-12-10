@@ -1,0 +1,9 @@
+{
+  "VALIDITY_PERIOD_LABELS": {
+    "43200": "12 Hours",
+    "432000": "5 Days",
+    "1209600": "Two Weeks",
+    "2592000": "30 Days"
+  },
+  "DEFAULT_VALIDITY_PERIOD": "43200"
+}
