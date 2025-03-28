@@ -42,7 +42,6 @@ import {
 } from '../../api/apiSchemas';
 import {canManageGroup} from '../../authorization';
 import {minTagTime, minTagTimeGroups} from '../../helpers';
-import accessConfig from '../../config/accessConfig';
 
 dayjs.extend(IsSameOrBefore);
 
@@ -169,10 +168,24 @@ const GROUP_TYPE_ID_TO_LABELS: Record<string, string> = {
 
 const RFC822_FORMAT = 'ddd, DD MMM YYYY HH:mm:ss ZZ';
 
-const UNTIL_ID_TO_LABELS: Record<string, string> = accessConfig.ACCESS_TIME_LABELS;
-const UNTIL_JUST_NUMERIC_ID_TO_LABELS: Record<string, string> = Object.fromEntries(
-  Object.entries(UNTIL_ID_TO_LABELS).filter(([key]) => !isNaN(Number(key))),
-);
+const UNTIL_ID_TO_LABELS: Record<string, string> = {
+  '43200': '12 Hours',
+  '432000': '5 Days',
+  '1209600': 'Two Weeks',
+  '2592000': '30 Days',
+  '7776000': '90 Days',
+  indefinite: 'Indefinite',
+  custom: 'Custom',
+} as const;
+
+const UNTIL_JUST_NUMERIC_ID_TO_LABELS: Record<string, string> = {
+  '43200': '12 Hours',
+  '432000': '5 Days',
+  '1209600': 'Two Weeks',
+  '2592000': '30 Days',
+  '7776000': '90 Days',
+} as const;
+
 const UNTIL_OPTIONS = Object.entries(UNTIL_ID_TO_LABELS).map(([id, label], index) => ({id: id, label: label}));
 
 function filterUntilLabels(timeLimit: number): [string, Array<Record<string, string>>] {
@@ -219,7 +232,7 @@ function CreateRequestContainer(props: CreateRequestContainerProps) {
 
   const untilLabels: [string, Array<Record<string, string>>] = timeLimit
     ? filterUntilLabels(timeLimit)
-    : [accessConfig.DEFAULT_ACCESS_TIME, UNTIL_OPTIONS];
+    : ['1209600', UNTIL_OPTIONS];
   const [until, setUntil] = React.useState(untilLabels[0]);
   const [labels, setLabels] = React.useState<Array<Record<string, string>>>(untilLabels[1]);
 
@@ -307,7 +320,7 @@ function CreateRequestContainer(props: CreateRequestContainerProps) {
     <FormContainer<CreateRequestForm>
       defaultValues={{
         group: props.group,
-        until: accessConfig.DEFAULT_ACCESS_TIME,
+        until: '1209600',
         ownerOrMember: props.owner != null ? (props.owner ? 'owner' : 'member') : undefined,
       }}
       onSuccess={(formData) => submit(formData)}>

@@ -29,7 +29,6 @@ import {
 import NumberInput from '../../components/NumberInput';
 import {OktaUser, Tag} from '../../api/apiSchemas';
 import {isAccessAdmin} from '../../authorization';
-import accessConfig from '../../config/accessConfig';
 
 interface TagButtonProps {
   setOpen(open: boolean): any;
@@ -201,7 +200,7 @@ function TagDialog(props: TagDialogProps) {
                   variant="outlined"
                   validation={{
                     maxLength: 255,
-                    pattern: new RegExp(accessConfig.NAME_VALIDATION_PATTERN),
+                    pattern: /^[A-Z][A-Za-z0-9\-]*$/,
                   }}
                   parseError={(error) => {
                     if (error?.message != '') {
@@ -211,9 +210,7 @@ function TagDialog(props: TagDialogProps) {
                       return 'Name can be at most 255 characters in length';
                     }
                     if (error.type == 'pattern') {
-                      return (
-                        accessConfig.NAME_VALIDATION_ERROR + ' Regex to match: ' + accessConfig.NAME_VALIDATION_PATTERN
-                      );
+                      return 'Name must start capitalized and contain only alphanumeric characters or hyphens. Regex to match /^[A-Z][A-Za-z0-9-]*$/';
                     }
                     return '';
                   }}

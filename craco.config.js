@@ -1,9 +1,4 @@
 const CracoAlias = require('react-app-alias');
-const path = require('path');
-const webpack = require('webpack');
-const {loadAccessConfig} = require('./src/config/loadAccessConfig');
-
-const accessConfig = loadAccessConfig();
 
 module.exports = {
   plugins: [
@@ -20,10 +15,5 @@ module.exports = {
     alias: {
       '@mui/styled-engine': '@mui/styled-engine-sc',
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        ACCESS_CONFIG: accessConfig,
-      }),
-    ],
   },
 };

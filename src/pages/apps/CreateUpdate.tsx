@@ -28,7 +28,6 @@ import {
 } from '../../api/apiComponents';
 import {App, AppTagMap, OktaUser, Tag} from '../../api/apiSchemas';
 import {isAccessAdmin, isAppOwnerGroupOwner, ACCESS_APP_RESERVED_NAME} from '../../authorization';
-import accessConfig from '../../config/accessConfig';
 
 interface AppButtonProps {
   setOpen(open: boolean): any;
@@ -147,7 +146,7 @@ function AppDialog(props: AppDialogProps) {
               variant="outlined"
               validation={{
                 maxLength: 255,
-                pattern: new RegExp(accessConfig.NAME_VALIDATION_PATTERN),
+                pattern: /^[A-Z][A-Za-z0-9\-]*$/,
               }}
               disabled={props.access_app}
               parseError={(error) => {
@@ -158,9 +157,7 @@ function AppDialog(props: AppDialogProps) {
                   return 'Name can be at most 255 characters in length';
                 }
                 if (error.type == 'pattern') {
-                  return (
-                    accessConfig.NAME_VALIDATION_ERROR + ' Regex to match: ' + accessConfig.NAME_VALIDATION_PATTERN
-                  );
+                  return 'Name must start capitalized and contain only alphanumeric characters or hyphens. Regex to match /^[A-Z][A-Za-z0-9-]*$/';
                 }
 
                 return '';

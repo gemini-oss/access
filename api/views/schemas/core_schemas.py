@@ -5,7 +5,7 @@ from marshmallow import Schema, ValidationError, fields, utils, validate, valida
 from marshmallow.schema import SchemaMeta, SchemaOpts
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from sqlalchemy.orm import Session
-from api.access_config import get_access_config
+
 from api.extensions import db
 from api.models import (
     AccessRequest,
@@ -21,8 +21,6 @@ from api.models import (
     RoleRequest,
     Tag,
 )
-
-access_config = get_access_config()
 
 
 # See https://stackoverflow.com/a/58646612
@@ -248,8 +246,9 @@ class OktaGroupSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{access_config.name_pattern}$",
-                error=f"Group {access_config.name_validation_error} Regex to match: /{{regex}}/",
+                "^[A-Z][A-Za-z0-9-]*$",
+                error="Group name must start capitalized and contain only alphanumeric characters or hyphens. "
+                "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -619,8 +618,9 @@ class RoleGroupSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{RoleGroup.ROLE_GROUP_NAME_PREFIX}{access_config.name_pattern}$",
-                error=f"Role {access_config.name_validation_error} Regex to match: /{{regex}}/",
+                f"^{RoleGroup.ROLE_GROUP_NAME_PREFIX}[A-Z][A-Za-z0-9-]*$",
+                error="Role name must start capitalized and contain only alphanumeric characters or hyphens. "
+                "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -838,8 +838,9 @@ class AppGroupSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{AppGroup.APP_GROUP_NAME_PREFIX}{access_config.name_pattern}{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}{access_config.name_pattern}$",
-                error=f"Group {access_config.name_validation_error} Regex to match: /{{regex}}/",
+                f"^{AppGroup.APP_GROUP_NAME_PREFIX}[A-Z][A-Za-z0-9-]*{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}[A-Z][A-Za-z0-9-]*$",
+                error="Group name must start capitalized and contain only alphanumeric characters or hyphens. "
+                "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -1129,8 +1130,9 @@ class InitialAppGroupSchema(Schema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{AppGroup.APP_GROUP_NAME_PREFIX}{access_config.name_pattern}{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}{access_config.name_pattern}$",
-                error=f"Group {access_config.name_validation_error} Regex to match: /{{regex}}/",
+                f"^{AppGroup.APP_GROUP_NAME_PREFIX}[A-Z][A-Za-z0-9-]*{AppGroup.APP_NAME_GROUP_NAME_SEPARATOR}[A-Z][A-Za-z0-9-]*$",
+                error="Group name must start capitalized and contain only alphanumeric characters or hyphens. "
+                "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -1143,8 +1145,9 @@ class AppSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{access_config.name_pattern}$",
-                error=f"App {access_config.name_validation_error} Regex to match: /{{regex}}/",
+                "^[A-Z][A-Za-z0-9-]*$",
+                error="App name must start capitalized and contain only alphanumeric characters or hyphens. "
+                "Regex to match: /{regex}/",
             ),
         ),
     )
@@ -1457,8 +1460,9 @@ class TagSchema(SQLAlchemyAutoSchema):
         validate=validate.And(
             validate.Length(min=1, max=255),
             validate.Regexp(
-                f"^{access_config.name_pattern}$",
-                error=f"Tag {access_config.name_validation_error} Regex to match: /{{regex}}/",
+                "^[A-Z][A-Za-z0-9-]*$",
+                error="Tag name must start capitalized and contain only alphanumeric characters or hyphens. "
+                "Regex to match: /{regex}/",
             ),
         ),
     )

@@ -31,7 +31,6 @@ import {
 } from '../../api/apiComponents';
 import {PolymorphicGroup, AppGroup, App, OktaUser, Tag, OktaGroupTagMap} from '../../api/apiSchemas';
 import {canManageGroup, isAccessAdmin, isAppOwnerGroupOwner} from '../../authorization';
-import accessConfig from '../../config/accessConfig';
 
 interface GroupButtonProps {
   defaultGroupType: 'okta_group' | 'app_group' | 'role_group';
@@ -262,7 +261,7 @@ function GroupDialog(props: GroupDialogProps) {
                 disabled={props.app_owner_group}
                 validation={{
                   maxLength: 255,
-                  pattern: new RegExp(accessConfig.NAME_VALIDATION_PATTERN),
+                  pattern: /^[A-Z][A-Za-z0-9\-]*$/,
                 }}
                 parseError={(error) => {
                   if (error?.message != '') {
@@ -272,9 +271,7 @@ function GroupDialog(props: GroupDialogProps) {
                     return 'Name can be at most 255 characters in length';
                   }
                   if (error.type == 'pattern') {
-                    return (
-                      accessConfig.NAME_VALIDATION_ERROR + ' Regex to match: ' + accessConfig.NAME_VALIDATION_PATTERN
-                    );
+                    return 'Name must start capitalized and contain only alphanumeric characters or hyphens. Regex to match /^[A-Z][A-Za-z0-9-]*$/';
                   }
 
                   return '';
